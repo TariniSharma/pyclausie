@@ -32,17 +32,30 @@ class Corpus(list):
     #def as_tsv(self):
     @classmethod
     def from_tsv(this_class, stream, print_sent_confidence):
+        print("here")
         stream = iter(stream)
         corpus = this_class()
+        lines1 = []
         for line in stream:
             if not print_sent_confidence:
-                (ident, subj, pred, obj) = line.decode().split('\t')
-                triple = Triple(ident, subj.strip('"'), pred.strip('"'),
-                                obj.strip('"'), None)
+                lines1.append(line.decode())
+                #(ident, subj, pred, obj) = line.decode().split('\t')
+                try:
+                    (ident, subj, pred, obj) = line.decode().split('\t')
+                except:
+                    (ident, subj, pred) = line.decode().split('\t')
+                    obj = ''
+                triple = Triple(ident, subj.strip('"'), pred.strip('"'),obj.strip('"'), None)
                 corpus.append(triple)
             else:
-                (ident, subj, pred, obj, conf) = line.decode().split('\t')
-                triple = Triple(ident, subj.strip('"'), pred.strip('"'),
-                                obj.strip('"'), conf.strip('"'))
+                lines1.append(line.decode())
+                #(ident, subj, pred, obj, conf) = line.decode().split('\t')
+                try:
+                    (ident, subj, pred, obj, conf) = line.decode().split('\t')
+                except:
+                    (ident, subj, pred, conf) = line.decode().split('\t')
+                    obj = ''
+                triple = Triple(ident, subj.strip('"'), pred.strip('"'),obj.strip('"'), conf.strip('"'))
                 corpus.append(triple)
-        return corpus
+
+        return corpus, lines1
