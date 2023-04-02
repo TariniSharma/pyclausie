@@ -35,10 +35,10 @@ class Corpus(list):
         print("here")
         stream = iter(stream)
         corpus = this_class()
-        lines1 = []
+        #lines1 = []
         for line in stream:
             if not print_sent_confidence:
-                lines1.append(line.decode())
+                #lines1.append(line.decode())
                 #(ident, subj, pred, obj) = line.decode().split('\t')
                 try:
                     (ident, subj, pred, obj) = line.decode().split('\t')
@@ -48,7 +48,7 @@ class Corpus(list):
                 triple = Triple(ident, subj.strip('"'), pred.strip('"'),obj.strip('"'), None)
                 corpus.append(triple)
             else:
-                lines1.append(line.decode())
+                #lines1.append(line.decode())
                 #(ident, subj, pred, obj, conf) = line.decode().split('\t')
                 try:
                     (ident, subj, pred, obj, conf) = line.decode().split('\t')
@@ -58,4 +58,4 @@ class Corpus(list):
                 triple = Triple(ident, subj.strip('"'), pred.strip('"'),obj.strip('"'), conf.strip('"'))
                 corpus.append(triple)
 
-        return corpus, lines1
+        return corpus

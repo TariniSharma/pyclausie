@@ -71,8 +71,8 @@ class SubprocessBackend(ClausIE):
             #os.remove(input_file.name)
             print("remove "+input_file.name)"""
         
-        triples, lines1 = Corpus.from_tsv(stdout.splitlines(), print_sent_confidence)
-        return triples, lines1
+        triples = Corpus.from_tsv(stdout.splitlines(), print_sent_confidence)
+        return triples
 
     @staticmethod
     def _raise_on_bad_exitcode(return_code, stderr):
